@@ -66,14 +66,14 @@ class PublicUserApiTests(TestCase):
         ).exists()
         self.assertFalse(user_exists)
 
-    def teet_create_token_for_user(self):
+    def test_create_token_for_user(self):
         '''Test that a token is created for user'''
-        payload = {'email': 'test@gmail.com', 'password': 'test@1234'}
+        payload = {'email': 'test@gmail.com', 'password': '1234'}
         create_user(**payload)
         res = self.client.post(TOKEN_URL, payload)
 
         self.assertIn('token', res.data)
-        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
 
     def test_create_token_invalid_credentials(self):
         '''Test that token is not created if invalid credentials are given'''
